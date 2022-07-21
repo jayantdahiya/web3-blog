@@ -2,14 +2,62 @@ import './App.css';
 import Content from './Components/Content';
 import Footer from './Components/Footer';
 import SideBar from './Components/SideBar';
+import {useMoralis} from 'react-moralis';
+import { createContext, useState } from 'react';
+
+export const AppContext = createContext();
 
 function App() {
+  const {authenticate, isAuthenticated, user, logout} = useMoralis();
+  const [currentUser, setCurrentUser] = useState();
+  const handleLogin = async() =>{
+    if(!currentUser){
+      try {
+        await authenticate()
+        .then(function (user){
+          console.log("logged in user:", user);
+          setCurrentUser(user?.get("ethAddress"));
+        })
+      } catch (error) {
+        console.log(error);
+        alert(error);
+      }
+    }
+  }
+  const handleLogout = async () => {
+    await logout();
+    setCurrentUser(null);
+    alert("Logged out");
+  }
   return (
-    <div className="app">
-      <SideBar />
-      <Content />
-      <Footer />
-    </div>
+    <>
+      {currentUser ? (
+        <AppContext.Provider value={{
+          handleLogout,
+          isAuthenticated,
+          handleLogin,
+          currentUser
+        }}>
+        <div className="app">
+          <SideBar />
+          <Content />
+          <Footer />
+        </div>
+        </AppContext.Provider>
+      ) : (
+        <div className="hero min-h-screen bg-base-200">
+          <div className="hero-content text-center">
+            <div className="max-w-md">
+              <h1 className="text-5xl font-bold">Hello there</h1>
+              <p className="py-6">
+                To get started connect your wallet using this button.
+              </p>
+              <button className="btn btn-primary" onClick={handleLogin}>Connect Wallet</button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 

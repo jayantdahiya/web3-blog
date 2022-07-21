@@ -1,45 +1,79 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../App';
 
 function SideBar() {
+    const {handleLogout, currentUser, handleLogin} = useContext(AppContext);
+    
   return (
-    <div className="dropdown absolute pt-5 pl-5">
-      <label className="btn btn-circle swap swap-rotate" tabIndex="0">
-        <input type="checkbox" />
-
-        <svg
-          className="swap-off fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 512 512"
-        >
-          <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
-        </svg>
-
-        <svg
-          className="swap-on fill-current"
-          xmlns="http://www.w3.org/2000/svg"
-          width="32"
-          height="32"
-          viewBox="0 0 512 512"
-        >
-          <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
-        </svg>
-      </label>
-      <ul
-        tabindex="0"
-        className="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-      >
-        <li>
-          <a>Home</a>
-        </li>
-        <li>
-          <a>GitHub</a>
-        </li>
-        <li>
-          <a>Change Theme</a>
-        </li>
-      </ul>
+    <div class="navbar bg-base-100">
+      <div class="navbar-start">
+        <div class="dropdown">
+          <label tabindex="0" class="btn btn-ghost btn-circle">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </label>
+          <ul
+            tabindex="0"
+            class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
+          >
+            <li>
+              <a>Homepage</a>
+            </li>
+            <li>
+              <a>GitHub</a>
+            </li>
+            <li>
+              <a>About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="navbar-center">
+        <a class="btn btn-ghost normal-case text-xl">Blog-DAPP</a>
+      </div>
+      <div class="navbar-end">
+        {currentUser ? (
+          <button class="btn gap-2 btn-primary" onClick={handleLogout}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-wallet"
+              viewBox="0 0 16 16"
+            >
+              <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z" />
+            </svg>
+            {currentUser.slice(0, 5) + "..." + currentUser.slice(38, 42)}
+          </button>
+        ) : (
+          <button class="btn gap-2 btn-primary" onClick={handleLogin}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-wallet"
+              viewBox="0 0 16 16"
+            >
+              <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z" />
+            </svg>
+            Connect Wallet
+          </button>
+        )}
+      </div>
     </div>
   );
 }
