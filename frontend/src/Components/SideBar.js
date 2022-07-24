@@ -5,7 +5,7 @@ function SideBar() {
     const {handleLogout, currentUser, handleLogin} = useContext(AppContext);
     
   return (
-    <div class="navbar bg-base-100">
+    <div class="navbar bg-base-300">
       <div class="navbar-start">
         <div class="dropdown">
           <label tabindex="0" class="btn btn-ghost btn-circle">
@@ -45,7 +45,7 @@ function SideBar() {
       </div>
       <div class="navbar-end">
         {currentUser ? (
-          <button class="btn gap-2 btn-primary" onClick={handleLogin}>
+          <button class="btn gap-2 btn-secondary" onClick={handleLogin}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,7 +59,7 @@ function SideBar() {
             {currentUser.slice(0, 5) + "..." + currentUser.slice(38, 42)}
           </button>
         ) : (
-          <button class="btn gap-2 btn-primary" onClick={handleLogout}>
+          <button class="btn gap-2 btn-secondary" onClick={handleLogout}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
