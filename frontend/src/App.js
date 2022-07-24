@@ -4,6 +4,11 @@ import Footer from './Components/Footer';
 import SideBar from './Components/SideBar';
 import {useMoralis} from 'react-moralis';
 import { createContext, useState } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import NewBlog from './Pages/NewBlog';
+import Blogs from './Pages/Blogs';
+import Profile from './Pages/Profile';
+import SingleBlog from './Pages/SingleBlog';
 
 export const AppContext = createContext();
 
@@ -31,32 +36,41 @@ function App() {
   }
   return (
     <>
-      {currentUser ? (
-        <AppContext.Provider value={{
+      <AppContext.Provider
+        value={{
           handleLogout,
           isAuthenticated,
           handleLogin,
-          currentUser
-        }}>
-        <div className="app">
-          <SideBar />
-          <Content />
-          <Footer />
-        </div>
-        </AppContext.Provider>
-      ) : (
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold">Hello there</h1>
-              <p className="py-6">
-                To get started connect your wallet using this button.
-              </p>
-              <button className="btn btn-primary" onClick={handleLogin}>Connect Wallet</button>
+          currentUser,
+        }}
+      >
+        <SideBar />
+        {isAuthenticated ? (
+          <div className="app">
+            <Routes>
+              <Route path="/" element={<Blogs />} />
+              <Route path="/newBlog" element={<NewBlog />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/blog/:url" element={<SingleBlog />} />
+            </Routes>
+          </div>
+        ) : (
+          <div className="hero min-h-screen bg-base-200">
+            <div className="hero-content text-center">
+              <div className="max-w-md">
+                <h1 className="text-5xl font-bold">Hello there</h1>
+                <p className="py-6">
+                  To get started connect your wallet using this button.
+                </p>
+                <button className="btn btn-primary" onClick={handleLogin}>
+                  Connect Wallet
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        <Footer />
+      </AppContext.Provider>
     </>
   );
 }

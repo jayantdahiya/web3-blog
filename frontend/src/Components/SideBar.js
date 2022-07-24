@@ -29,13 +29,13 @@ function SideBar() {
             class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a>Homepage</a>
+              <a href='/'>Homepage</a>
             </li>
             <li>
-              <a>GitHub</a>
+              <a href='/newBlog'>Post Blog</a>
             </li>
             <li>
-              <a>About</a>
+              <a href='/profile'>Profile</a>
             </li>
           </ul>
         </div>
@@ -45,7 +45,7 @@ function SideBar() {
       </div>
       <div class="navbar-end">
         {currentUser ? (
-          <button class="btn gap-2 btn-primary" onClick={handleLogout}>
+          <button class="btn gap-2 btn-primary" onClick={handleLogin}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -59,7 +59,7 @@ function SideBar() {
             {currentUser.slice(0, 5) + "..." + currentUser.slice(38, 42)}
           </button>
         ) : (
-          <button class="btn gap-2 btn-primary" onClick={handleLogin}>
+          <button class="btn gap-2 btn-primary" onClick={handleLogout}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="16"
@@ -70,7 +70,7 @@ function SideBar() {
             >
               <path d="M0 3a2 2 0 0 1 2-2h13.5a.5.5 0 0 1 0 1H15v2a1 1 0 0 1 1 1v8.5a1.5 1.5 0 0 1-1.5 1.5h-12A2.5 2.5 0 0 1 0 12.5V3zm1 1.732V12.5A1.5 1.5 0 0 0 2.5 14h12a.5.5 0 0 0 .5-.5V5H2a1.99 1.99 0 0 1-1-.268zM1 3a1 1 0 0 0 1 1h12V2H2a1 1 0 0 0-1 1z" />
             </svg>
-            Connect Wallet
+            Disconnect
           </button>
         )}
       </div>

@@ -4,16 +4,19 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { MoralisProvider } from "react-moralis";
+import { BrowserRouter } from 'react-router-dom';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <MoralisProvider
-      serverUrl="https://xbquvtivljk5.usemoralis.com:2053/server"
-      appId="T4W15BVZoWEYHq8VyXV4eD5zz81mERkSWg0q2Wi7"
-    >
-      <App />
-    </MoralisProvider>
+    <BrowserRouter>
+      <MoralisProvider
+        serverUrl="https://xbquvtivljk5.usemoralis.com:2053/server"
+        appId="T4W15BVZoWEYHq8VyXV4eD5zz81mERkSWg0q2Wi7"
+      >
+        <App />
+      </MoralisProvider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
