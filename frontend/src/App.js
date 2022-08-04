@@ -9,12 +9,13 @@ import NewBlog from './Pages/NewBlog';
 import Blogs from './Pages/Blogs';
 import Profile from './Pages/Profile';
 import SingleBlog from './Pages/SingleBlog';
+import Side from './Components/Side';
 
 export const AppContext = createContext();
 
 function App() {
   const {authenticate, isAuthenticated, user, logout} = useMoralis();
-  const [currentUser, setCurrentUser] = useState();
+  var [currentUser, setCurrentUser] = useState();
   const handleLogin = async() =>{
     if(!currentUser){
       try {
@@ -44,7 +45,8 @@ function App() {
           currentUser,
         }}
       >
-        <SideBar />
+        {/* <SideBar /> */}
+        <Side />
         {isAuthenticated ? (
           <div className="app">
             <Routes>
@@ -61,6 +63,7 @@ function App() {
                 <h1 className="text-5xl font-bold">Hello there</h1>
                 <p className="py-6">
                   To get started connect your wallet using this button.
+                  Please use Polygon Mumbai Testnet for testing.
                 </p>
                 <button className="btn btn-primary" onClick={handleLogin}>
                   Connect Wallet
