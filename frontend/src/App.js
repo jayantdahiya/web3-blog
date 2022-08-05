@@ -45,7 +45,6 @@ function App() {
         }}
       >
         <div className="app">
-          {/* <SideBar /> */}
           {isAuthenticated ? (
             <Routes>
               <Route path="/" element={<Blogs />} />

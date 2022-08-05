@@ -14,7 +14,7 @@ function NewBlog() {
               class="input input-bordered input-primary w-full max-w-xs"
             />
             <textarea
-              class="textarea textarea-bordered"
+              class="textarea textarea-bordered textarea-primary h-64"
               placeholder="Blog content"
             ></textarea>
             <div class="card-actions justify-end">
