@@ -1,7 +1,9 @@
 import React from 'react'
 
 function Profile() {
-  return <div className="hero min-h-[90vh]">Profile</div>;
+  return <div className="hero">
+
+  </div>;
 }
 
 export default Profile
