@@ -19,11 +19,12 @@ function App() {
   const handleLogin = async() =>{
     if(!currentUser){
       try {
-        await authenticate()
-        .then(function (user){
-          console.log("logged in user:", user);
-          setCurrentUser(user?.get("ethAddress"));
-        })
+        await authenticate({ signingMessage: "Login with your wallet" }).then(
+          function (user) {
+            console.log("logged in user:", user);
+            setCurrentUser(user?.get("ethAddress"));
+          }
+        );
       } catch (error) {
         console.log(error);
         alert(error);
