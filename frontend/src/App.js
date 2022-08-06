@@ -3,7 +3,7 @@ import Content from './Components/Content';
 import Footer from './Components/Footer';
 import {useMoralis} from 'react-moralis';
 import { createContext, useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 import NewBlog from './Pages/NewBlog';
 import Blogs from './Pages/Blogs';
 import Profile from './Pages/Profile';
@@ -14,6 +14,7 @@ export const AppContext = createContext();
 
 function App() {
   const {authenticate, isAuthenticated, user, logout} = useMoralis();
+  let navigate = useNavigate();
   var [currentUser, setCurrentUser] = useState();
   const handleLogin = async() =>{
     if(!currentUser){
@@ -33,6 +34,7 @@ function App() {
     await logout();
     setCurrentUser(null);
     alert("Logged out");
+    navigate("/");
   }
   return (
     <>
