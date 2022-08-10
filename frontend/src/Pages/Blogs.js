@@ -78,7 +78,7 @@ function Blogs() {
                 <p>{owner_of.slice(20,30)}</p>
                 <div className="card-actions justify-end">
                   <button className="btn btn-primary" onClick={handleRead}>
-                    Read
+                    View
                   </button>
                 </div>
               </div>
