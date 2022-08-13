@@ -7,7 +7,7 @@ function Profile() {
   return (
     <div className="hero">
       <div className="hero-content place-content-center h-[100vh] w-[100vw]">
-        <div class="card w-96 bg-neutral text-neutral-content">
+        <div class="card w-[80vw] bg-neutral text-neutral-content">
           <div class="card-body items-center text-center">
             <div class="avatar online placeholder">
               <div class="bg-slate-50 text-neutral-content rounded-full w-16">

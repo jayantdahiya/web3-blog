@@ -5,17 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 function Blogs() {
-  let navigate = useNavigate();
-  const {account, isAuthenticated, isInitialized} = useMoralis();
+  const navigate = useNavigate();
   const Web3Api = useMoralisWeb3Api();
-  const [blogs, setBlogs] = React.useState([]);
-  const [blogsContent, setBlogsContent] = React.useState([]);
-  const handleRead = () => {
-    navigate('/blog/url');
-  }
-  const handleCreate = () => {
-    navigate('/newBlog');
-  }
+  const {account, isAuthenticated, isInitialized} = useMoralis();
+  const [blogs, setBlogs] = React.useState();
+  var [blogsContent, setBlogsContent] = React.useState();
+  
+
   const fetchAllNfts = async () => {
     const options = {
       chain: "mumbai",
@@ -25,7 +21,6 @@ function Blogs() {
     const polygonNFTs = await Web3Api.token.getNFTOwners(options);
     const tokenUri = polygonNFTs?.result?.map((data) => {
       const { metadata, owner_of } = data;
-
       if (metadata) {
         const metadataObj = JSON.parse(metadata);
         const { externalUrl } = metadataObj;
@@ -35,13 +30,12 @@ function Blogs() {
       }
     });
     setBlogs(tokenUri);
-    console.log(tokenUri);
+    console.log(blogs);
   };
 
   const fetchBlogsContent = async () => {
     const limit5 = blogs?.slice(0, 5);
-    let contentBlog = [];
-
+    const contentBlog = [];
     if (limit5) {
       limit5.map(async (blog) => {
         if (blog) {
@@ -53,41 +47,71 @@ function Blogs() {
         }
       });
     }
-
     setBlogsContent(contentBlog);
     console.log(contentBlog);
   };
 
+  const handleRead = () => {
+    navigate("/blog/url");
+  };
+
+  const handleCreate = () => {
+    navigate("/newBlog");
+  };
+
+
   useEffect(() => {
-    if (isInitialized) {
+    if (isInitialized && isAuthenticated) {
       fetchAllNfts();
+    }
+  }, [isAuthenticated, isInitialized, account]);
+
+  useEffect(() => {
+    if (blogs) {
       fetchBlogsContent();
     }
-  }, [isInitialized]);
-    
+  }, [blogs]);
+  
+
   return (
-    <div className="hero">
-      <div className="hero-content">
-        { blogsContent.map((blog, id) => {
-            const { title, text, owner_of, externalUrl } = blog;
-            return (
-              <div className="card w-96 bg-base-100 shadow-xl mt-2 mb-2" key={id}>
-              <div className="card-body">
-                <h2 className="card-title">{title}</h2>
-                <p>{text}</p>
-                <p>{owner_of.slice(20,30)}</p>
-                <div className="card-actions justify-end">
-                  <button className="btn btn-primary" onClick={handleRead}>
-                    View
-                  </button>
-                </div>
-              </div>
-            </div>
-            )
-          })}
+    <div className="hero min-h-screen">
+      <div className='hero-content inline-grid'>
+        {
+          blogsContent && blogsContent.length > 0 ? (
+            blogsContent.map((blog, i) => {
+              const { title, text, owner_of, externalUrl } = blog;
+                return (
+                  <div className="card w-[80vw] bg-base-100 shadow-xl" key={i}>
+                    <div className="card-body">
+                      <h2 className="card-title">{title}</h2>
+                      <p>
+                        Author : {owner_of.slice(0, 3)}...
+                        {owner_of.slice(26, 30)}
+                      </p>
+                      {text.length > 200 ? (
+                        <p>{text.slice(0, 200)}...</p>
+                      ) : (
+                        <p>{text}</p>
+                      )}
+                      <div className="card-actions justify-end">
+                        <button
+                          className="btn btn-primary"
+                          onClick={handleRead}
+                        >
+                          Read More
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                );
+            })
+          ) : (
+            <dov>Loading...</dov>
+          )
+        }
       </div>
     </div>
-  );
+  )
 }
 
 export default Blogs

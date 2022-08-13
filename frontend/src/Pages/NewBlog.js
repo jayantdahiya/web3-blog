@@ -94,7 +94,7 @@ function NewBlog() {
   return (
     <div className="hero min-h-[90vh]">
       <div className="hero-content text-center">
-        <div className="card w-96 bg-base-100 shadow-xl">
+        <div className="card w-[80vw] bg-base-100 shadow-xl">
           <div className="card-body">
             <h2 className="card-title">Post a new blog!</h2>
             <p></p>

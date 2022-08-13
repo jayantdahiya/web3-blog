@@ -56,10 +56,10 @@ function App() {
               <Route path="/blog/:url" element={<SingleBlog />} />
             </Routes>
           ) : (
-            <div className="hero min-h-screen bg-base-200">
+            <div className="hero min-h-screen">
               <div className="hero-content text-center">
                 <div className="max-w-md">
-                  <h1 className="text-5xl font-bold">Hello there</h1>
+                  <h1 className="text-5xl font-bold">Hi!</h1>
                   <p className="py-6">
                     To get started connect your wallet using this button. Please
                     use Polygon Mumbai Testnet for testing.
@@ -71,7 +71,6 @@ function App() {
               </div>
             </div>
           )}
-          {/* <Footer /> */}
           <Side />
         </div>
 
